@@ -1,7 +1,9 @@
 from abc import abstractmethod
 from enum import IntEnum, unique
 
-from typing import List, Tuple
+from typing import List, Tuple, Set
+
+from src.utils import to_string
 
 
 @unique
@@ -9,6 +11,13 @@ class Direction(IntEnum):
     LEFT = 0,
     DIAGONAL = 1,
     UP = 2
+
+
+directions_moves = {
+    Direction.LEFT: (0, -1),
+    Direction.DIAGONAL: (-1, -1),
+    Direction.UP: (-1, 0)
+}
 
 
 class ICellCostComputer(object):
@@ -59,13 +68,56 @@ class CellCostComputer(ICellCostComputer):
 
 class NeedlemanWunschSolver(object):
 
+    gap_string = "-"
+
     def __init__(self, cell_cost_computer: ICellCostComputer):
         self.cell_cost_computer = cell_cost_computer
 
-    def generate_alignment(self, seq_a: str, seq_b: str) -> List[Tuple[str, str]]:
-        return [("", "")]
+    def generate_alignment(self, a_seq: str, b_seq: str) -> Set[Tuple[str, str]]:
+        _, directions_matrix = self.compute_cost_direction_matrices(a_seq, b_seq)
+        return self.__generate_alignment(
+            r=len(a_seq),
+            c=len(b_seq),
+            a_seq=a_seq,
+            b_seq=b_seq,
+            directions_matrix=directions_matrix,
+            current_a_align=[],
+            current_b_align=[]
+        )
 
-    def compute_cost_direction_matrices(self, a_seq: str, b_seq: str)\
+    def __generate_alignment(self,
+                             r: int, c: int,
+                             a_seq: str, b_seq: str,
+                             directions_matrix: List[List[List[Direction]]],
+                             current_a_align: List[str],
+                             current_b_align: List[str]) \
+            -> Set[Tuple[str, str]]:
+        if r == 0 or c == 0:
+            rest = max(r, c)
+            a_align = current_a_align + ([self.gap_string] * rest if r == 0 else [x for x in a_seq[:r]])
+            b_align = current_b_align + ([self.gap_string] * rest if c == 0 else [x for x in b_seq[:c]])
+            print("{} {}".format(a_align, b_align))
+            return {tuple(map(
+                lambda l: to_string(l)[::-1],
+                [a_align, b_align]))[:2]
+            }
+
+        res = set()
+        for direction in directions_matrix[r][c]:
+            res |= self.__generate_alignment(
+                r=r + directions_moves[direction][0],
+                c=c + directions_moves[direction][1],
+                a_seq=a_seq,
+                b_seq=b_seq,
+                directions_matrix=directions_matrix,
+                current_a_align=current_a_align + [
+                    a_seq[r - 1] if direction in (Direction.DIAGONAL, Direction.UP) else self.gap_string],
+                current_b_align=current_b_align + [
+                    b_seq[c - 1] if direction in (Direction.DIAGONAL, Direction.LEFT) else self.gap_string]
+            )
+        return res
+
+    def compute_cost_direction_matrices(self, a_seq: str, b_seq: str) \
             -> (List[List[int]], List[List[List[Direction]]]):
         len_a, len_b = len(a_seq), len(b_seq)
         cost_matrix = self.generate_initial_cost_matrix(len_a, len_b)
@@ -80,7 +132,7 @@ class NeedlemanWunschSolver(object):
             cell_generator=self.__initial_cost_matrix_cell_generator
         )
 
-    def generate_initial_directions_matrix(self, a_seq_len: int, b_seq_len: int)\
+    def generate_initial_directions_matrix(self, a_seq_len: int, b_seq_len: int) \
             -> List[List[List[Direction]]]:
         return self.__generate_matrix(
             height=a_seq_len + 1,
@@ -122,4 +174,3 @@ class NeedlemanWunschSolver(object):
             return max(row, col) * self.cell_cost_computer.gap_penalty
         else:
             return 0
-
