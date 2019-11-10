@@ -30,7 +30,7 @@ class NeedlemanWunschTests(unittest.TestCase):
         a_seq_len = 2
         b_seq_len = 3
 
-        result_matrix = self.solver.__generate_cost_matrix(
+        result_matrix = self.solver.generate_cost_matrix(
             a_seq_len=a_seq_len,
             b_seq_len=b_seq_len
         )
