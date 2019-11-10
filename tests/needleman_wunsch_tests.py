@@ -77,3 +77,47 @@ class NeedlemanWunschTests(unittest.TestCase):
         ]
 
         self.assertListEqual(result_matrix, expected_matrix)
+
+    def test_generate_correct_cost_matrix_for_empty_sequences(self):
+        a_seq = ""
+        b_seq = ""
+
+        result_matrix = self.solver.compute_cost_matrix(
+            a_seq=a_seq,
+            b_seq=b_seq
+        )
+
+        expected_matrix = [0]
+
+        self.assertListEqual(result_matrix, expected_matrix)
+
+    def test_generate_correct_cost_matrix_for_empty_and_not_empty_sequences(self):
+        a_seq = ""
+        b_seq = "ala"
+
+        result_matrix = self.solver.compute_cost_matrix(
+            a_seq=a_seq,
+            b_seq=b_seq
+        )
+
+        expected_matrix = [0, -2, -4, -6]
+
+        self.assertListEqual(result_matrix, expected_matrix)
+
+    def test_generate_correct_cost_matrix_for_not_empty_and_empty_sequences(self):
+        a_seq = "ala"
+        b_seq = ""
+
+        result_matrix = self.solver.compute_cost_matrix(
+            a_seq=a_seq,
+            b_seq=b_seq
+        )
+
+        expected_matrix = [
+            [0],
+            [-2],
+            [-4],
+            [-6]
+        ]
+
+        self.assertListEqual(result_matrix, expected_matrix)
