@@ -3,7 +3,7 @@ import unittest
 from src.needleman_wunsch_solver import NeedlemanWunschSolver, CellCostComputer
 
 
-class NeedlemanWunschTests(unittest.TestCase):
+class GeneralNeedlemanWunschTests(unittest.TestCase):
     gap_penalty = -2
 
     same_cost = 5
