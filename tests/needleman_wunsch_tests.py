@@ -8,7 +8,7 @@ class NeedlemanWunschTests(unittest.TestCase):
     gap_penalty = -2
 
     def setUp(self):
-        self.solver = NeedlemanWunschSolver(gap_penalty=gap_penalty)
+        self.solver = NeedlemanWunschSolver(gap_penalty=self.gap_penalty)
 
     def test_solver_has_properly_initialized_gap_penalty_field(self):
-        self.assertEquals(self.solver, gap_penalty)
+        self.assertEqual(self.solver.gap_penalty, self.gap_penalty)
