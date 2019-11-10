@@ -44,3 +44,18 @@ class NeedlemanWunschTests(unittest.TestCase):
         ]
 
         self.assertListEqual(result_matrix, expected_matrix)
+
+    def test_generate_initial_directions_matrix(self):
+        a_seq_len = 2
+        b_seq_len = 3
+
+        result_matrix = self.solver.generate_initial_directions_matrix(
+            a_seq_len=a_seq_len,
+            b_seq_len=b_seq_len
+        )
+
+        expected_matrix = [
+            [] * (a_seq_len + 1)
+        ] * (b_seq_len + 1)
+
+        self.assertListEqual(result_matrix, expected_matrix)
