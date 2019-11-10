@@ -16,11 +16,15 @@ class DirectionsMatrixTest(unittest.TestCase):
 
     @parameterized.expand([
         [
-            [[], [], []],
-            [[], [Direction.DIAGONAL], [Direction.LEFT, Direction.DIAGONAL]],
-            [[], [Direction.UP], [Direction.LEFT, Direction.UP]]
-        ], "AD", "AA"
+            [
+                [[], [], []],
+                [[], [Direction.DIAGONAL], [Direction.LEFT, Direction.DIAGONAL]],
+                [[], [Direction.UP], [Direction.LEFT, Direction.UP]]
+            ], "AD", "AA"
+        ]
     ])
     def test_directions_matrix(self, expected_result, a_seq, b_seq):
+        print("expected_result '{}'".format(expected_result))
+        print("a_seq = '{}'".format(a_seq))
         _, result = self.solver.compute_cost_direction_matrices(a_seq=a_seq, b_seq=b_seq)
         self.assertListEqual(result, expected_result)
