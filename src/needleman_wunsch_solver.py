@@ -62,6 +62,9 @@ class NeedlemanWunschSolver(object):
     def __init__(self, cell_cost_computer: ICellCostComputer):
         self.cell_cost_computer = cell_cost_computer
 
+    def generate_alignment(self, seq_a, seq_b):
+        pass
+
     def compute_cost_direction_matrices(self, a_seq: str, b_seq: str)\
             -> (List[List[int]], List[List[List[Direction]]]):
         len_a, len_b = len(a_seq), len(b_seq)
@@ -119,3 +122,4 @@ class NeedlemanWunschSolver(object):
             return max(row, col) * self.cell_cost_computer.gap_penalty
         else:
             return 0
+
