@@ -16,7 +16,7 @@ class AlignmentPathsTests(unittest.TestCase):
 
     @parameterized.expand([
         [
-            [],
+            [("", "")],
             "", ""
         ]
     ])

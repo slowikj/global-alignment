@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from enum import IntEnum, unique
 
-from typing import List
+from typing import List, Tuple
 
 
 @unique
@@ -62,8 +62,8 @@ class NeedlemanWunschSolver(object):
     def __init__(self, cell_cost_computer: ICellCostComputer):
         self.cell_cost_computer = cell_cost_computer
 
-    def generate_alignment(self, seq_a, seq_b):
-        return []
+    def generate_alignment(self, seq_a: str, seq_b: str) -> List[Tuple[str, str]]:
+        return [("", "")]
 
     def compute_cost_direction_matrices(self, a_seq: str, b_seq: str)\
             -> (List[List[int]], List[List[List[Direction]]]):
