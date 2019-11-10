@@ -23,6 +23,14 @@ class DirectionsMatrixTest(unittest.TestCase):
                 [[], [Direction.DIAGONAL], [Direction.LEFT, Direction.DIAGONAL]],
                 [[], [Direction.UP], [Direction.LEFT, Direction.UP]]
             ], "AD", "AA"
+        ],
+        [
+            [
+                [[], [], [], []],
+                [[], [Direction.DIAGONAL], [Direction.LEFT, Direction.DIAGONAL], [Direction.LEFT]],
+                [[], [Direction.UP], [Direction.LEFT, Direction.UP], [Direction.LEFT, Direction.UP]],
+                [[], [Direction.DIAGONAL, Direction.UP], [Direction.DIAGONAL], [Direction.LEFT]]
+            ], "ADA", "AAS"
         ]
     ])
     def test_directions_matrix(self, expected_result, a_seq, b_seq):
