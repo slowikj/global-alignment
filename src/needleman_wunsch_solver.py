@@ -7,14 +7,14 @@ class NeedlemanWunschSolver(object):
 
     def generate_initial_cost_matrix(self, a_seq_len: int, b_seq_len: int):
         return self.__generate_matrix(
-            height=b_seq_len + 1,
-            width=a_seq_len + 1,
+            height=a_seq_len + 1,
+            width=b_seq_len + 1,
             cell_generator=self.__initial_cost_matrix_cell_generator)
 
     def generate_initial_directions_matrix(self, a_seq_len: int, b_seq_len: int):
         return self.__generate_matrix(
-            height=b_seq_len + 1,
-            width=a_seq_len + 1,
+            height=a_seq_len + 1,
+            width=b_seq_len + 1,
             cell_generator=lambda r, c: [])
 
     def __initial_cost_matrix_cell_generator(self, row: int, col: int):

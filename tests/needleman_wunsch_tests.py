@@ -37,10 +37,9 @@ class NeedlemanWunschTests(unittest.TestCase):
 
         gp = self.gap_penalty
         expected_matrix = [
-            [0, gp, 2 * gp],
-            [gp, 0, 0],
-            [2 * gp, 0, 0],
-            [3 * gp, 0, 0]
+            [0, gp, 2 * gp, 3 * gp],
+            [gp, 0, 0, 0],
+            [2 * gp, 0, 0, 0]
         ]
 
         self.assertListEqual(result_matrix, expected_matrix)
@@ -55,7 +54,7 @@ class NeedlemanWunschTests(unittest.TestCase):
         )
 
         expected_matrix = [
-            [[] for _ in range(a_seq_len + 1)]
-        ] * (b_seq_len + 1)
+            [[] for _ in range(b_seq_len + 1)]
+        ] * (a_seq_len + 1)
 
         self.assertListEqual(result_matrix, expected_matrix)
