@@ -12,10 +12,8 @@ class NeedlemanWunschSolver(object):
             cell_generator=lambda r, c: self.__initial_cost_matrix_cell_generator(r, c))
 
     def __initial_cost_matrix_cell_generator(self, row: int, col: int):
-        if row == 0:
-            return col * self.gap_penalty
-        elif col == 0:
-            return row * self.gap_penalty
+        if row == 0 or col == 0:
+            return max(row, col) * self.gap_penalty
         else:
             return 0
 
