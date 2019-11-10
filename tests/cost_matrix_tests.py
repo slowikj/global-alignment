@@ -44,6 +44,25 @@ class CostMatrixTests(unittest.TestCase):
                 [-6]
             ],
             "ala", ""
+        ],
+        [
+            [
+                [0, -2, -4, -6, -8],
+                [-2, -4, 3, 1, -1],
+                [-4, 3, 1, -1, 6],
+                [-6, 1, 8, 6, 4],
+                [-8, -1, 6, 13, 11],
+                [-10, -3, 4, 11, 9]
+            ], "alaaa", "laal"
+        ],
+        [
+            [
+                [0, -2, -4],
+                [-2, 5, 3],
+                [-4, 3, 10],
+                [-6, 1, 8],
+                [-8, -1, 6]
+            ], "adad", "ad"
         ]
     ])
     def test_cost_matrix(self, expected_matrix, a_seq, b_seq):
