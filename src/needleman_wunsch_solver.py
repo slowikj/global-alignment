@@ -5,7 +5,7 @@ class NeedlemanWunschSolver:
         self.same_cost = same_cost
         self.diff_cost = diff_cost
 
-    def generate_cost_matrix(self, a_seq_len: int, b_seq_len: int):
+    def generate_initial_cost_matrix(self, a_seq_len: int, b_seq_len: int):
         res = [
             [0 for _ in range(a_seq_len + 1)] for _ in range(b_seq_len + 1)
         ]

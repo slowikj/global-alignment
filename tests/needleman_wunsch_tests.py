@@ -26,11 +26,11 @@ class NeedlemanWunschTests(unittest.TestCase):
     def test_solver_has_properly_initialized_diff_cost_field(self):
         self.assertEqual(self.solver.diff_cost, self.diff_cost)
 
-    def test_generate_cost_matrix_creates_initial_matrix_for_cost_computations(self):
+    def test_generate_initial_cost_matrix(self):
         a_seq_len = 2
         b_seq_len = 3
 
-        result_matrix = self.solver.generate_cost_matrix(
+        result_matrix = self.solver.generate_initial_cost_matrix(
             a_seq_len=a_seq_len,
             b_seq_len=b_seq_len
         )
