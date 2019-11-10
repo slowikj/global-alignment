@@ -10,7 +10,9 @@ class NeedlemanWunschTests(unittest.TestCase):
     same_cost = 5
 
     def setUp(self):
-        self.solver = NeedlemanWunschSolver(gap_penalty=self.gap_penalty)
+        self.solver = NeedlemanWunschSolver(
+            gap_penalty=self.gap_penalty,
+            same_cost=self.same_cost)
 
     def test_solver_has_properly_initialized_gap_penalty_field(self):
         self.assertEqual(self.solver.gap_penalty, self.gap_penalty)
