@@ -1,3 +1,13 @@
+from enum import IntEnum, unique
+
+
+@unique
+class Direction(IntEnum):
+    LEFT = 0,
+    DIAGONAL = 1,
+    UP = 2
+
+
 class NeedlemanWunschSolver(object):
 
     def __init__(self, gap_penalty: int, same_cost: int, diff_cost: int):
@@ -25,17 +35,17 @@ class NeedlemanWunschSolver(object):
             width=b_seq_len + 1,
             cell_generator=lambda r, c: [])
 
-    def __compute_cost_matrix_cell(self, cost_matrix, a_seq, b_seq, r, c):
-        cost_matrix[r][c] = max(
-            cost_matrix[r][c - 1] + self.gap_penalty,
-            cost_matrix[r - 1][c - 1] + self.__item_comparison_cost(a_seq[r - 1], b_seq[c - 1]),
-            cost_matrix[r - 1][c] + self.gap_penalty)
-
     def __fill_cost_matrix(self, a_seq, b_seq, cost_matrix):
         cost_matrix_height, cost_matrix_width = len(cost_matrix), len(cost_matrix[0])
         for r in range(1, cost_matrix_height):
             for c in range(1, cost_matrix_width):
                 self.__compute_cost_matrix_cell(cost_matrix, a_seq, b_seq, r, c)
+
+    def __compute_cost_matrix_cell(self, cost_matrix, a_seq, b_seq, r, c):
+        cost_matrix[r][c] = max(
+            cost_matrix[r][c - 1] + self.gap_penalty,
+            cost_matrix[r - 1][c - 1] + self.__item_comparison_cost(a_seq[r - 1], b_seq[c - 1]),
+            cost_matrix[r - 1][c] + self.gap_penalty)
 
     def __item_comparison_cost(self, a, b):
         return self.same_cost if a == b else self.diff_cost
