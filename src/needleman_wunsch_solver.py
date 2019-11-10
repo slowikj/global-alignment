@@ -6,7 +6,7 @@ class NeedlemanWunschSolver(object):
         self.diff_cost = diff_cost
 
     def generate_initial_cost_matrix(self, a_seq_len: int, b_seq_len: int):
-        return self.__generate_matix(
+        return self.__generate_matrix(
             height=b_seq_len + 1,
             width=a_seq_len + 1,
             cell_generator=lambda r, c: self.__initial_cost_matrix_cell_generator(r, c))
@@ -18,12 +18,13 @@ class NeedlemanWunschSolver(object):
             return 0
 
     def generate_initial_directions_matrix(self, a_seq_len: int, b_seq_len: int):
-        return self.__generate_matix(
+        return self.__generate_matrix(
             height=b_seq_len + 1,
             width=a_seq_len + 1,
             cell_generator=lambda r, c: [])
 
-    def __generate_matix(self, height: int, width: int, cell_generator):
+    @staticmethod
+    def __generate_matrix(height: int, width: int, cell_generator):
         return [[cell_generator(r, c) for c in range(width)]
                 for r in range(height)
                 ]
