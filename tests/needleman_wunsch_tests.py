@@ -55,7 +55,7 @@ class NeedlemanWunschTests(unittest.TestCase):
         )
 
         expected_matrix = [
-            [] * (a_seq_len + 1)
+            [] for _ in range(a_seq_len + 1)
         ] * (b_seq_len + 1)
 
         self.assertListEqual(result_matrix, expected_matrix)
