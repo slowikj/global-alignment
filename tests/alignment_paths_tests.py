@@ -18,6 +18,10 @@ class AlignmentPathsTests(unittest.TestCase):
         [
             [("", "")],
             "", ""
+        ],
+        [
+            [("A", "A")],
+            "A", "A"
         ]
     ])
     def test(self, expected_result, seq_a, seq_b):
