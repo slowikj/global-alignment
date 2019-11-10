@@ -34,7 +34,7 @@ class CellCostComputerTests(unittest.TestCase):
             [[0, -2, -4],
              [-2, 0, 0],
              [0, 0, 0]
-            ],
+             ],
             "AD", "AA",
             1, 1
         ],
@@ -43,7 +43,7 @@ class CellCostComputerTests(unittest.TestCase):
             [[0, -2, -4],
              [-2, 5, 3],
              [-4, 0, 0]
-            ],
+             ],
             "AD", "AA",
             2, 1
         ],
@@ -52,7 +52,7 @@ class CellCostComputerTests(unittest.TestCase):
             [[0, -2, -4],
              [-2, 5, 3],
              [-4, 3, 0]
-            ],
+             ],
             "AD", "AA",
             2, 2
         ]
