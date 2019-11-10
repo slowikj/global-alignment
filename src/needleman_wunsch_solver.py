@@ -13,12 +13,6 @@ class NeedlemanWunschSolver(object):
         self.__fill_cost_matrix(a_seq, b_seq, cost_matrix)
         return cost_matrix
 
-    def __fill_cost_matrix(self, a_seq, b_seq, cost_matrix):
-        cost_matrix_height, cost_matrix_width = len(cost_matrix), len(cost_matrix[0])
-        for r in range(1, cost_matrix_height):
-            for c in range(1, cost_matrix_width):
-                self.__compute_cost_matrix_cell(cost_matrix, a_seq, b_seq, r, c)
-
     def generate_initial_cost_matrix(self, a_seq_len: int, b_seq_len: int):
         return self.__generate_matrix(
             height=a_seq_len + 1,
@@ -36,6 +30,12 @@ class NeedlemanWunschSolver(object):
             cost_matrix[r][c - 1] + self.gap_penalty,
             cost_matrix[r - 1][c - 1] + self.__item_comparison_cost(a_seq[r - 1], b_seq[c - 1]),
             cost_matrix[r - 1][c] + self.gap_penalty)
+
+    def __fill_cost_matrix(self, a_seq, b_seq, cost_matrix):
+        cost_matrix_height, cost_matrix_width = len(cost_matrix), len(cost_matrix[0])
+        for r in range(1, cost_matrix_height):
+            for c in range(1, cost_matrix_width):
+                self.__compute_cost_matrix_cell(cost_matrix, a_seq, b_seq, r, c)
 
     def __item_comparison_cost(self, a, b):
         return self.same_cost if a == b else self.diff_cost
