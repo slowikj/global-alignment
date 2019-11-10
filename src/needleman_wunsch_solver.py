@@ -11,17 +11,17 @@ class NeedlemanWunschSolver(object):
             width=a_seq_len + 1,
             cell_generator=lambda r, c: self.__initial_cost_matrix_cell_generator(r, c))
 
-    def __initial_cost_matrix_cell_generator(self, row: int, col: int):
-        if row == 0 or col == 0:
-            return max(row, col) * self.gap_penalty
-        else:
-            return 0
-
     def generate_initial_directions_matrix(self, a_seq_len: int, b_seq_len: int):
         return self.__generate_matrix(
             height=b_seq_len + 1,
             width=a_seq_len + 1,
             cell_generator=lambda r, c: [])
+
+    def __initial_cost_matrix_cell_generator(self, row: int, col: int):
+        if row == 0 or col == 0:
+            return max(row, col) * self.gap_penalty
+        else:
+            return 0
 
     @staticmethod
     def __generate_matrix(height: int, width: int, cell_generator):
