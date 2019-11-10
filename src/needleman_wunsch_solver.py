@@ -9,7 +9,7 @@ class NeedlemanWunschSolver(object):
         return self.__generate_matrix(
             height=b_seq_len + 1,
             width=a_seq_len + 1,
-            cell_generator=lambda r, c: self.__initial_cost_matrix_cell_generator(r, c))
+            cell_generator=self.__initial_cost_matrix_cell_generator)
 
     def generate_initial_directions_matrix(self, a_seq_len: int, b_seq_len: int):
         return self.__generate_matrix(
