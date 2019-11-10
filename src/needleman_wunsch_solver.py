@@ -10,12 +10,14 @@ class NeedlemanWunschSolver(object):
         cost_matrix = self.generate_initial_cost_matrix(
             a_seq_len=len_a,
             b_seq_len=len_b)
-
-        for r in range(1, len(cost_matrix)):
-            for c in range(1, len(cost_matrix[0])):
-                self.__compute_cost_matrix_cell(cost_matrix, a_seq, b_seq, r, c)
-
+        self.__fill_cost_matrix(a_seq, b_seq, cost_matrix)
         return cost_matrix
+
+    def __fill_cost_matrix(self, a_seq, b_seq, cost_matrix):
+        cost_matrix_height, cost_matrix_width = len(cost_matrix), len(cost_matrix[0])
+        for r in range(1, cost_matrix_height):
+            for c in range(1, cost_matrix_width):
+                self.__compute_cost_matrix_cell(cost_matrix, a_seq, b_seq, r, c)
 
     def generate_initial_cost_matrix(self, a_seq_len: int, b_seq_len: int):
         return self.__generate_matrix(
