@@ -1,10 +1,9 @@
 import unittest
 
-from src.needleman_wunsch_solver import NeedlemanWunschSolver
+from src.needleman_wunsch_solver import NeedlemanWunschSolver, CellCostComputer
 
 
 class NeedlemanWunschTests(unittest.TestCase):
-
     gap_penalty = -2
 
     same_cost = 5
@@ -13,18 +12,11 @@ class NeedlemanWunschTests(unittest.TestCase):
 
     def setUp(self):
         self.solver = NeedlemanWunschSolver(
-            gap_penalty=self.gap_penalty,
-            same_cost=self.same_cost,
-            diff_cost=self.diff_cost)
-
-    def test_solver_has_properly_initialized_gap_penalty_field(self):
-        self.assertEqual(self.solver.gap_penalty, self.gap_penalty)
-
-    def test_solver_has_properly_initialized_same_cost_field(self):
-        self.assertEqual(self.solver.same_cost, self.same_cost)
-
-    def test_solver_has_properly_initialized_diff_cost_field(self):
-        self.assertEqual(self.solver.diff_cost, self.diff_cost)
+            CellCostComputer(
+                gap_penalty=self.gap_penalty,
+                same_cost=self.same_cost,
+                diff_cost=self.diff_cost)
+        )
 
     def test_generate_initial_cost_matrix(self):
         a_seq_len = 2
@@ -54,7 +46,7 @@ class NeedlemanWunschTests(unittest.TestCase):
         )
 
         expected_matrix = [
-            [[] for _ in range(b_seq_len + 1)]
-        ] * (a_seq_len + 1)
+                              [[] for _ in range(b_seq_len + 1)]
+                          ] * (a_seq_len + 1)
 
         self.assertListEqual(result_matrix, expected_matrix)

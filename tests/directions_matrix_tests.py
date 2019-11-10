@@ -2,16 +2,18 @@ import unittest
 
 from parameterized import parameterized
 
-from src.needleman_wunsch_solver import NeedlemanWunschSolver, Direction
+from src.needleman_wunsch_solver import NeedlemanWunschSolver, Direction, CellCostComputer
 
 
 class DirectionsMatrixTest(unittest.TestCase):
 
     def setUp(self):
         self.solver = NeedlemanWunschSolver(
-            same_cost=5,
-            diff_cost=-5,
-            gap_penalty=-2
+            CellCostComputer(
+                same_cost=5,
+                diff_cost=-5,
+                gap_penalty=-2
+            )
         )
 
     @parameterized.expand([
