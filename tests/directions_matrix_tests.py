@@ -31,10 +31,24 @@ class DirectionsMatrixTest(unittest.TestCase):
                 [[], [Direction.UP], [Direction.LEFT, Direction.UP], [Direction.LEFT, Direction.UP]],
                 [[], [Direction.DIAGONAL, Direction.UP], [Direction.DIAGONAL], [Direction.LEFT]]
             ], "ADA", "AAS"
+        ],
+        [
+            [[[]]],
+            "", ""
+        ],
+        [
+            [
+                [[]],
+                [[]],
+                [[]]
+            ], "AA", ""
+        ],
+        [
+            [
+                [[], [], []]
+            ], "", "AA"
         ]
     ])
     def test_directions_matrix(self, expected_result, a_seq, b_seq):
-        print("expected_result '{}'".format(expected_result))
-        print("a_seq = '{}'".format(a_seq))
         _, result = self.solver.compute_cost_direction_matrices(a_seq=a_seq, b_seq=b_seq)
         self.assertListEqual(result, expected_result)
