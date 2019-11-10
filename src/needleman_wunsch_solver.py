@@ -18,3 +18,6 @@ class NeedlemanWunschSolver:
 
         return res
 
+    def generate_initial_directions_matrix(self, a_seq_len, b_seq_len):
+        return [[] for _ in range(a_seq_len + 1)] * (b_seq_len + 1)
+
