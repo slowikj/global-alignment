@@ -66,7 +66,8 @@ class CostMatrixTests(unittest.TestCase):
         ]
     ])
     def test_cost_matrix(self, expected_matrix, a_seq, b_seq):
+        result, _ = self.solver.compute_cost_direction_matrices(a_seq=a_seq, b_seq=b_seq)
         self.assertListEqual(
-            self.solver.compute_cost_matrix(a_seq=a_seq, b_seq=b_seq),
+            result,
             expected_matrix
         )

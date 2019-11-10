@@ -58,22 +58,3 @@ class NeedlemanWunschTests(unittest.TestCase):
         ] * (a_seq_len + 1)
 
         self.assertListEqual(result_matrix, expected_matrix)
-
-    def test_generate_correct_cost_matrix(self):
-        a_seq = "acca"
-        b_seq = "acc"
-
-        result_matrix = self.solver.compute_cost_matrix(
-            a_seq=a_seq,
-            b_seq=b_seq
-        )
-
-        expected_matrix = [
-            [0, -2, -4, -6],
-            [-2, 5, 3, 1],
-            [-4, 3, 10, 8],
-            [-6, 1, 8, 15],
-            [-8, -1, 6, 13]
-        ]
-
-        self.assertListEqual(result_matrix, expected_matrix)

@@ -15,13 +15,13 @@ class NeedlemanWunschSolver(object):
         self.same_cost = same_cost
         self.diff_cost = diff_cost
 
-    def compute_cost_matrix(self, a_seq: str, b_seq: str):
+    def compute_cost_direction_matrices(self, a_seq: str, b_seq: str):
         len_a, len_b = len(a_seq), len(b_seq)
         cost_matrix = self.generate_initial_cost_matrix(
             a_seq_len=len_a,
             b_seq_len=len_b)
         self.__fill_cost_matrix(a_seq, b_seq, cost_matrix)
-        return cost_matrix
+        return cost_matrix, []
 
     def generate_initial_cost_matrix(self, a_seq_len: int, b_seq_len: int):
         return self.__generate_matrix(
