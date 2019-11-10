@@ -16,16 +16,22 @@ class AlignmentPathsTests(unittest.TestCase):
 
     @parameterized.expand([
         [
-            [("", "")],
+            {("", "")},
             "", ""
         ],
         [
-            [("A", "A")],
+            {("A", "A")},
             "A", "A"
+        ],
+        [
+            {("AA", "A-"), ("AA", "-A")},
+            "AA", "A"
         ]
     ])
     def test(self, expected_result, seq_a, seq_b):
-        self.assertListEqual(
-            self.solver.generate_alignment(seq_a=seq_a, seq_b=seq_b),
+        alignment = self.solver.generate_alignment(a_seq=seq_a, b_seq=seq_b)
+        print(alignment)
+        self.assertSetEqual(
+            alignment,
             expected_result
         )
