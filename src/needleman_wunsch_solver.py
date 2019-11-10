@@ -96,7 +96,6 @@ class NeedlemanWunschSolver(object):
             rest = max(r, c)
             a_align = current_a_align + ([self.gap_string] * rest if r == 0 else [x for x in a_seq[:r]])
             b_align = current_b_align + ([self.gap_string] * rest if c == 0 else [x for x in b_seq[:c]])
-            print("{} {}".format(a_align, b_align))
             return {tuple(map(
                 lambda l: to_string(l)[::-1],
                 [a_align, b_align]))[:2]
