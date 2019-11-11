@@ -12,11 +12,12 @@ class NeedlemanWunschParamsValidator(object):
             "MAX_NUMBER_PATHS"
         }
 
-    def validate_config(self, config: Dict[str, int]) -> Tuple[bool, Set[str]]:
+    def validate_config(self, config: Dict[str, int]) -> Tuple[bool, Set[str], Set[str]]:
         keys = config.keys()
         return (
             keys == self.obligatory_keys,
-            self.obligatory_keys - keys
+            self.obligatory_keys - keys,
+            set(keys) - self.obligatory_keys
         )
 
 
