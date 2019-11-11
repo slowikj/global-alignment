@@ -1,6 +1,5 @@
 from abc import abstractmethod
 from enum import IntEnum, unique
-
 from typing import List, Tuple, Set, Callable
 
 from utils import to_string, prefix_reversed

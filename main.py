@@ -1,6 +1,6 @@
-from typing import Dict, Tuple, Set
-import sys
 import getopt
+import sys
+from typing import Dict
 
 from config_analysis import IntConfigReader
 from params_validator import NeedlemanWunschParamsValidator
