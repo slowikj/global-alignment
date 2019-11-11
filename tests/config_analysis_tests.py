@@ -14,3 +14,15 @@ class ConfigAnalysisTests(unittest.TestCase):
             []
         )
 
+    def test_after_add_line_returns_list_with_appropriate_key_value(self):
+        # arrange
+        line = "FIST_PARAM 5"
+        # act
+        self.config_reader.add_line(line)
+        # assert
+        self.assertListEqual(
+            self.config_reader.get_attributes(),
+            [("FIRST PARAM", 5)]
+        )
+
+
