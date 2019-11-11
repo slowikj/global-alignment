@@ -19,6 +19,6 @@ class NeedlemanWunschParamsValidatorTests(unittest.TestCase):
         # act
         validation_status, missing_params = self.params_validator.validate_config(config)
 
-        # act
+        # assert
         self.assertEqual(validation_status, False)
         self.assertSetEqual(missing_params, {"MAX_SEQ_LENGTH", "MAX_NUMBER_PATHS"})
