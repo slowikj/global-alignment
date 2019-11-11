@@ -25,4 +25,11 @@ class ConfigAnalysisTests(unittest.TestCase):
             [("FIST_PARAM", 5)]
         )
 
-
+    def test_add_line_with_many_spaces_raises_value_error(self):
+        # arrange
+        line = "FIRST_PARAM   5"
+        # act and assert
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line)
+        )
