@@ -6,8 +6,8 @@ In `/input_files` you can find example input files.
 
 In `/output_files` you can find the result.
 
-In order to run the code you must write:
+In order to run the code you must type:
 
 ```
-python -m needleman_wunsch.py -a fasta_seq_1 -b fasta_seq_2 -c config.txt -o result_file.txt
+python -m main.py -a fasta_seq_1 -b fasta_seq_2 -c config.txt -o result_file.txt
 ```
