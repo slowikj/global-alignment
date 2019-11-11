@@ -87,3 +87,18 @@ class ConfigAnalysisTests(unittest.TestCase):
             ValueError,
             lambda: self.config_reader.add_line(line)
         )
+
+    def test_adding_two_valid_lines_gives_proper_key_value_attrs_list(self):
+        # arrange
+        line1 = "A 1"
+        line2 = "B 3"
+
+        # act
+        self.config_reader.add_line(line1)
+        self.config_reader.add_line(line2)
+
+        # assert
+        self.assertListEqual(
+            self.config_reader.get_attributes(),
+            [("A", 1), ("B", 3)]
+        )
