@@ -61,7 +61,7 @@ class AlignmentPathsTests(unittest.TestCase):
         ]
     ])
     def test(self, expected_result, seq_a, seq_b):
-        alignment = self.solver.generate_alignment(a_seq=seq_a, b_seq=seq_b)
+        alignment = self.solver.generate_alignments(a_seq=seq_a, b_seq=seq_b)
         self.assertSetEqual(
             alignment,
             expected_result

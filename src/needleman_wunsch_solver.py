@@ -73,9 +73,9 @@ class NeedlemanWunschSolver(object):
     def __init__(self, cell_cost_computer: ICellCostComputer):
         self.cell_cost_computer = cell_cost_computer
 
-    def generate_alignment(self, a_seq: str, b_seq: str) -> Set[Tuple[str, str]]:
+    def generate_alignments(self, a_seq: str, b_seq: str) -> Set[Tuple[str, str]]:
         _, directions_matrix = self.compute_cost_direction_matrices(a_seq, b_seq)
-        return self.__generate_alignment(
+        return self.__generate_alignments(
             r=len(a_seq),
             c=len(b_seq),
             a_seq=a_seq,
@@ -84,37 +84,6 @@ class NeedlemanWunschSolver(object):
             current_a_align=[],
             current_b_align=[]
         )
-
-    def __generate_alignment(self,
-                             r: int, c: int,
-                             a_seq: str, b_seq: str,
-                             directions_matrix: List[List[List[Direction]]],
-                             current_a_align: List[str],
-                             current_b_align: List[str]) \
-            -> Set[Tuple[str, str]]:
-        if r == 0 or c == 0:
-            rest = max(r, c)
-            a_align = current_a_align + ([self.gap_string] * rest if r == 0 else [x for x in a_seq[:r][::-1]])
-            b_align = current_b_align + ([self.gap_string] * rest if c == 0 else [x for x in b_seq[:c][::-1]])
-            return {tuple(map(
-                lambda l: to_string(l)[::-1],
-                [a_align, b_align]))[:2]
-            }
-
-        res = set()
-        for direction in directions_matrix[r][c]:
-            res |= self.__generate_alignment(
-                r=r + directions_moves[direction][0],
-                c=c + directions_moves[direction][1],
-                a_seq=a_seq,
-                b_seq=b_seq,
-                directions_matrix=directions_matrix,
-                current_a_align=current_a_align + [
-                    a_seq[r - 1] if direction in (Direction.DIAGONAL, Direction.UP) else self.gap_string],
-                current_b_align=current_b_align + [
-                    b_seq[c - 1] if direction in (Direction.DIAGONAL, Direction.LEFT) else self.gap_string]
-            )
-        return res
 
     def compute_cost_direction_matrices(self, a_seq: str, b_seq: str) \
             -> (List[List[int]], List[List[List[Direction]]]):
@@ -137,6 +106,43 @@ class NeedlemanWunschSolver(object):
             height=a_seq_len + 1,
             width=b_seq_len + 1,
             cell_generator=lambda r, c: [])
+
+    def __generate_alignments(self,
+                              r: int, c: int,
+                              a_seq: str, b_seq: str,
+                              directions_matrix: List[List[List[Direction]]],
+                              current_a_align: List[str],
+                              current_b_align: List[str]) \
+            -> Set[Tuple[str, str]]:
+        if r == 0 or c == 0:
+            return self.__prepare_alignment(a_seq, b_seq, r, c, current_a_align, current_b_align)
+
+        res = set()
+        for direction in directions_matrix[r][c]:
+            res |= self.__generate_alignments(
+                r=r + directions_moves[direction][0],
+                c=c + directions_moves[direction][1],
+                a_seq=a_seq,
+                b_seq=b_seq,
+                directions_matrix=directions_matrix,
+                current_a_align=current_a_align + [
+                    a_seq[r - 1] if direction in (Direction.DIAGONAL, Direction.UP) else self.gap_string],
+                current_b_align=current_b_align + [
+                    b_seq[c - 1] if direction in (Direction.DIAGONAL, Direction.LEFT) else self.gap_string]
+            )
+        return res
+
+    def __prepare_alignment(self, a_seq, b_seq, r, c, current_a_align, current_b_align):
+        rest = max(r, c)
+        a_align = self.__add_last_alignment_filling(current_a_align, rest, a_seq, r)
+        b_align = self.__add_last_alignment_filling(current_b_align, rest, b_seq, c)
+        return { tuple(map(
+            lambda l: to_string(l)[::-1],
+            [a_align, b_align]))[:2]
+        }
+
+    def __add_last_alignment_filling(self, current_align, rest, seq, index):
+        return current_align + ([self.gap_string] * rest if index == 0 else [x for x in seq[0:index][::-1]])
 
     def __fill_cost_and_direction_matrix(self, a_seq: str, b_seq: str,
                                          cost_matrix: List[List[int]],
