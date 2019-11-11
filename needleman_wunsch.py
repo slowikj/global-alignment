@@ -2,8 +2,8 @@ from typing import Dict, Tuple, Set
 import sys
 import getopt
 
-from src.config_analysis import IntConfigReader
-from src.solver import NeedlemanWunschSolver, CellCostComputer
+from config_analysis import IntConfigReader
+from solver import NeedlemanWunschSolver, CellCostComputer
 
 
 class NeedlemanWunschParamsValidator(object):
@@ -104,7 +104,7 @@ if __name__ == "__main__":
         opts, _ = getopt.getopt(args, "a:b:c:o:")
         raise_value_error_if_arg_is_missing(opts)
     except (ValueError, getopt.GetoptError):
-        print("usage: python needleman_wunsch.py -a seq1.txt -b seq2.txt -c config.txt -o output.txt")
+        print("usage: python -m needleman_wunsch.py -a seq1.txt -b seq2.txt -c config.txt -o output.txt")
         sys.exit(2)
 
     seq_a, seq_b, config, output_path = extract_params(opts)

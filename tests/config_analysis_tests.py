@@ -1,6 +1,6 @@
 import unittest
 
-from src.config_analysis import IntConfigReader
+from config_analysis import IntConfigReader
 
 
 class ConfigAnalysisTests(unittest.TestCase):

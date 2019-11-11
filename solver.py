@@ -3,7 +3,7 @@ from enum import IntEnum, unique
 
 from typing import List, Tuple, Set, Callable
 
-from src.utils import to_string, prefix_reversed
+from utils import to_string, prefix_reversed
 
 
 @unique

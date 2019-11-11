@@ -2,7 +2,7 @@ import unittest
 
 from parameterized import parameterized
 
-from src.solver import CellCostComputer
+from solver import CellCostComputer
 
 
 class CellCostComputerTests(unittest.TestCase):

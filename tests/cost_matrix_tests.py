@@ -2,7 +2,7 @@ import unittest
 
 from parameterized import parameterized
 
-from src.solver import NeedlemanWunschSolver, CellCostComputer
+from solver import NeedlemanWunschSolver, CellCostComputer
 
 
 class CostMatrixTests(unittest.TestCase):

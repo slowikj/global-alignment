@@ -1,6 +1,6 @@
 import unittest
 
-from src.utils import to_string, prefix_reversed
+from utils import to_string, prefix_reversed
 
 
 class UtilsTests(unittest.TestCase):
