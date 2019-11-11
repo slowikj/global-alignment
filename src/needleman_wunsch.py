@@ -93,11 +93,17 @@ def compute_and_save_alignments(config: Dict[str, int], seq_a: str, seq_b: str, 
             output.write("{}\n{}\n\n".format(alignment[0], alignment[1]))
 
 
+def raise_value_error_if_arg_is_missing(opts):
+    if set(map(lambda x: x[0][1:], opts)) != {"a", "b", "c", "o"}:
+        raise ValueError()
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     try:
         opts, _ = getopt.getopt(args, "a:b:c:o:")
-    except getopt.GetoptError:
+        raise_value_error_if_arg_is_missing(opts)
+    except (ValueError, getopt.GetoptError):
         print("usage: python needleman_wunsch.py -a seq1.txt -b seq2.txt -c config.txt -o output.txt")
         sys.exit(2)
 
