@@ -26,10 +26,31 @@ class AlignmentPathsTests(unittest.TestCase):
         [
             {("AA", "A-"), ("AA", "-A")},
             "AA", "A"
+        ],
+        [
+            {("A-S", "AA-"), ("-AS", "AA-"), ("AS-", "A-A")},
+            "AS", "AA"
+        ],
+        [
+            {('AAA-D', '--AS-'),
+             ('A-AAD', 'AS---'),
+             ('AA-AD', 'A-S--'),
+             ('AAA-D', 'A--S-'),
+             ('AA-AD', '-AS--'),
+             ('AAAD-', 'A---S'),
+             ('AAAD-', '--A-S'),
+             ('AAAD-', '-A--S'),
+             ('AAA-D', '-A-S-')},
+            "AAAD", "AS"
+        ],
+        [
+            {("----", "AAAD")},
+            "", "AAAD"
         ]
     ])
     def test(self, expected_result, seq_a, seq_b):
+        alignment = self.solver.generate_alignment(a_seq=seq_a, b_seq=seq_b)
         self.assertSetEqual(
-            self.solver.generate_alignment(a_seq=seq_a, b_seq=seq_b),
+            alignment,
             expected_result
         )
