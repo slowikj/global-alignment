@@ -54,3 +54,10 @@ class NeedlemanWunschParamsValidatorTests(unittest.TestCase):
         self.assertEqual(validation_status, True)
         self.assertSetEqual(missing_params, set())
         self.assertSetEqual(redundant_params, set())
+
+    def test_validate_proper_sequences_length(self):
+        seq_a = "AAAAAAA"
+        seq_b = "GGGGDDFDFDF"
+        max_length = 100
+
+        self.assertTrue(self.params_validator.validate_sequences(seq_a, seq_b, max_length))
