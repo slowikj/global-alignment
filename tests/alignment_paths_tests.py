@@ -72,3 +72,8 @@ class AlignmentPathsTests(unittest.TestCase):
         score, alignment = self.solver.generate_alignments(a_seq=seq_a, b_seq=seq_b)
         self.assertSetEqual(alignment, expected_alignments)
         self.assertEqual(score, expected_score)
+
+    def test_max_paths(self):
+        max_paths = 2
+        _, alignment = self.solver.generate_alignments("AADD", "S", max_paths)
+        self.assertTrue(len(alignment) <= max_paths)
