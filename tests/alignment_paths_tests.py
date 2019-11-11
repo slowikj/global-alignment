@@ -79,6 +79,9 @@ class AlignmentPathsTests(unittest.TestCase):
     def test_max_paths_if_there_are_less_possible(self):
         self.__check_max_paths(100)
 
+    def test_max_paths_is_0_then_no_alignment(self):
+        self.__check_max_paths(0)
+
     def __check_max_paths(self, max_paths):
         _, alignment = self.solver.generate_alignments("AADD", "S", max_paths)
         self.assertTrue(len(alignment) <= max_paths)
