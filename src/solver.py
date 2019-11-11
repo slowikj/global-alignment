@@ -85,7 +85,7 @@ class NeedlemanWunschSolver(object):
                 current_a_align=[],
                 current_b_align=[],
                 max_paths=max_paths,
-                computed_paths=0
+                computed_paths_num=0
             ))
 
     def compute_cost_direction_matrices(self, a_seq: str, b_seq: str) \
@@ -117,8 +117,8 @@ class NeedlemanWunschSolver(object):
                               current_a_align: List[str],
                               current_b_align: List[str],
                               max_paths: int,
-                              computed_paths: int) -> Set[Tuple[str, str]]:
-        if computed_paths == max_paths:
+                              computed_paths_num: int) -> Set[Tuple[str, str]]:
+        if computed_paths_num == max_paths:
             return set()
 
         if r == 0 or c == 0:
@@ -137,7 +137,7 @@ class NeedlemanWunschSolver(object):
                 current_b_align=current_b_align + [
                     self.__get_alignment_char(b_seq[c - 1], direction, [Direction.DIAGONAL, Direction.LEFT])],
                 max_paths=max_paths,
-                computed_paths=computed_paths + len(res)
+                computed_paths_num=computed_paths_num + len(res)
             )
         return res
 
