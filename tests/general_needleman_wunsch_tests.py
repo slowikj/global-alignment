@@ -1,6 +1,6 @@
 import unittest
 
-from src.needleman_wunsch_solver import NeedlemanWunschSolver, CellCostComputer
+from src.solver import NeedlemanWunschSolver, CellCostComputer
 
 
 class GeneralNeedlemanWunschTests(unittest.TestCase):

@@ -2,7 +2,7 @@ import unittest
 
 from parameterized import parameterized
 
-from src.needleman_wunsch_solver import NeedlemanWunschSolver, Direction, CellCostComputer
+from src.solver import NeedlemanWunschSolver, Direction, CellCostComputer
 
 
 class DirectionsMatrixTest(unittest.TestCase):

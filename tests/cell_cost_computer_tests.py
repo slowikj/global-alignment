@@ -2,7 +2,7 @@ import unittest
 
 from parameterized import parameterized
 
-from src.needleman_wunsch_solver import CellCostComputer
+from src.solver import CellCostComputer
 
 
 class CellCostComputerTests(unittest.TestCase):
