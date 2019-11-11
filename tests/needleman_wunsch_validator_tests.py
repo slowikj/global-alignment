@@ -1,6 +1,6 @@
 import unittest
 
-from main import NeedlemanWunschParamsValidator
+from params_validator import NeedlemanWunschParamsValidator
 
 
 class NeedlemanWunschParamsValidatorTests(unittest.TestCase):

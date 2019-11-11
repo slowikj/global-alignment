@@ -3,31 +3,8 @@ import sys
 import getopt
 
 from config_analysis import IntConfigReader
+from params_validator import NeedlemanWunschParamsValidator
 from solver import NeedlemanWunschSolver, CellCostComputer
-
-
-class NeedlemanWunschParamsValidator(object):
-
-    def __init__(self):
-        self.obligatory_keys = {
-            "GAP_PENALTY",
-            "SAME",
-            "DIFF",
-            "MAX_SEQ_LENGTH",
-            "MAX_NUMBER_PATHS"
-        }
-
-    def validate_config(self, config: Dict[str, int]) -> Tuple[bool, Set[str], Set[str]]:
-        keys = config.keys()
-        return (
-            keys == self.obligatory_keys,
-            self.obligatory_keys - keys,
-            set(keys) - self.obligatory_keys
-        )
-
-    @staticmethod
-    def validate_sequence(sequence: str, max_sequence_length: int) -> bool:
-        return len(sequence) <= max_sequence_length
 
 
 def read_sequence_from_fasta(file_path: str) -> str:
