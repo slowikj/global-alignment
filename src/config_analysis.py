@@ -1,4 +1,4 @@
-from typing import Tuple, List, Dict
+from typing import Dict
 
 
 class IntConfigReader(object):
@@ -11,6 +11,9 @@ class IntConfigReader(object):
 
     def add_line(self, line: str):
         attr_key, attr_value = line.split(sep=" ", maxsplit=2)
+        self.__raise_error_if_attr_repeats(attr_key)
+        self.__config_attrs[attr_key] = int(attr_value)
+
+    def __raise_error_if_attr_repeats(self, attr_key):
         if attr_key in self.__config_attrs:
             raise ValueError("{} is already in config")
-        self.__config_attrs[attr_key] = int(attr_value)
