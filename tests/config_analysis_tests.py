@@ -1,12 +1,12 @@
 import unittest
 
-from src.config_analysis import ConfigReader
+from src.config_analysis import IntConfigReader
 
 
 class ConfigAnalysisTests(unittest.TestCase):
 
     def setUp(self):
-        self.config_reader = ConfigReader()
+        self.config_reader = IntConfigReader()
 
     def test_empty_config_reader_returns_empty_list(self):
         self.assertListEqual(
@@ -22,7 +22,7 @@ class ConfigAnalysisTests(unittest.TestCase):
         # assert
         self.assertListEqual(
             self.config_reader.get_attributes(),
-            [("FIRST PARAM", 5)]
+            [("FIST_PARAM", 5)]
         )
 
 
