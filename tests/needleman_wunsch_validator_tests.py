@@ -36,3 +36,21 @@ class NeedlemanWunschParamsValidatorTests(unittest.TestCase):
         # assert
         self.assertEqual(validation_status, False)
         self.assertSetEqual(redundant_params, {"aaa"})
+
+    def test_validate_proper_config(self):
+        # arrange
+        config = {
+            "GAP_PENALTY": 3,
+            "SAME": 3,
+            "DIFF": 3,
+            "MAX_SEQ_LENGTH": 3,
+            "MAX_NUMBER_PATHS": 3
+        }
+
+        # act
+        validation_status, missing_params, redundant_params = self.params_validator.validate_config(config)
+
+        # assert
+        self.assertEqual(validation_status, True)
+        self.assertSetEqual(missing_params, set())
+        self.assertSetEqual(redundant_params, set())
