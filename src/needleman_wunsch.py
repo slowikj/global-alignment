@@ -1,7 +1,7 @@
 from typing import Dict, Tuple, Set
 
 
-class NeedlemanWunschParamsValidator(object):
+class NeedlemanWunschConfigValidator(object):
 
     def __init__(self):
         self.obligatory_keys = {
