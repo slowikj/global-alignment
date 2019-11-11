@@ -16,4 +16,4 @@ class IntConfigReader(object):
 
     def __raise_error_if_attr_repeats(self, attr_key):
         if attr_key in self.__config_attrs:
-            raise ValueError("{} is already in config")
+            raise ValueError("{} is already in config".format(attr_key))
