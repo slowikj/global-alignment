@@ -117,8 +117,7 @@ class NeedlemanWunschSolver(object):
                               current_a_align: List[str],
                               current_b_align: List[str],
                               max_paths: int,
-                              computed_paths: int) \
-            -> Set[Tuple[str, str]]:
+                              computed_paths: int) -> Set[Tuple[str, str]]:
         if computed_paths == max_paths:
             return set()
 
@@ -134,13 +133,17 @@ class NeedlemanWunschSolver(object):
                 b_seq=b_seq,
                 directions_matrix=directions_matrix,
                 current_a_align=current_a_align + [
-                    a_seq[r - 1] if direction in (Direction.DIAGONAL, Direction.UP) else self.gap_string],
+                    self.__get_alignment_char(a_seq[r - 1], direction, [Direction.DIAGONAL, Direction.UP])],
                 current_b_align=current_b_align + [
-                    b_seq[c - 1] if direction in (Direction.DIAGONAL, Direction.LEFT) else self.gap_string],
+                    self.__get_alignment_char(b_seq[c - 1], direction, [Direction.DIAGONAL, Direction.LEFT])],
                 max_paths=max_paths,
                 computed_paths=computed_paths + len(res)
             )
         return res
+
+    def __get_alignment_char(self, current_char: str, direction: Direction,
+                             directions_for_seq_char: List[Direction]):
+        return current_char if direction in directions_for_seq_char else self.gap_string
 
     def __prepare_alignment(self, a_seq: str, b_seq: str,
                             r: int, c: int,
