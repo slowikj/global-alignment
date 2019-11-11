@@ -3,7 +3,7 @@ from enum import IntEnum, unique
 
 from typing import List, Tuple, Set, Callable
 
-from src.utils import to_string
+from src.utils import to_string, prefix_reversed
 
 
 @unique
@@ -159,7 +159,9 @@ class NeedlemanWunschSolver(object):
 
     def __add_last_alignment_filling(self, current_align: List[str], rest_char_num: int, seq: str, current_index: int):
         return current_align + \
-               ([self.gap_string] * rest_char_num if current_index == 0 else [x for x in seq[0:current_index][::-1]])
+               ([self.gap_string] * rest_char_num if current_index == 0 else [x for x in
+                                                                              prefix_reversed(seq,
+                                                                                              current_index)])
 
     def __fill_cost_and_direction_matrix(self, a_seq: str, b_seq: str,
                                          cost_matrix: List[List[int]],
