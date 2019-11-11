@@ -72,7 +72,7 @@ class NeedlemanWunschSolver(object):
     def __init__(self, cell_cost_computer: ICellCostComputer):
         self.cell_cost_computer = cell_cost_computer
 
-    def generate_alignments(self, a_seq: str, b_seq: str) -> Tuple[int, Set[Tuple[str, str]]]:
+    def generate_alignments(self, a_seq: str, b_seq: str, max_paths: int = None) -> Tuple[int, Set[Tuple[str, str]]]:
         cost_matrix, directions_matrix = self.compute_cost_direction_matrices(a_seq, b_seq)
         return (
             cost_matrix[len(a_seq)][len(b_seq)],
@@ -83,7 +83,9 @@ class NeedlemanWunschSolver(object):
                 b_seq=b_seq,
                 directions_matrix=directions_matrix,
                 current_a_align=[],
-                current_b_align=[]
+                current_b_align=[],
+                max_paths=max_paths,
+                computed_paths=0
             ))
 
     def compute_cost_direction_matrices(self, a_seq: str, b_seq: str) \
@@ -113,8 +115,13 @@ class NeedlemanWunschSolver(object):
                               a_seq: str, b_seq: str,
                               directions_matrix: List[List[List[Direction]]],
                               current_a_align: List[str],
-                              current_b_align: List[str]) \
+                              current_b_align: List[str],
+                              max_paths: int,
+                              computed_paths: int) \
             -> Set[Tuple[str, str]]:
+        if computed_paths == max_paths:
+            return set()
+
         if r == 0 or c == 0:
             return self.__prepare_alignment(a_seq, b_seq, r, c, current_a_align, current_b_align)
 
@@ -129,7 +136,9 @@ class NeedlemanWunschSolver(object):
                 current_a_align=current_a_align + [
                     a_seq[r - 1] if direction in (Direction.DIAGONAL, Direction.UP) else self.gap_string],
                 current_b_align=current_b_align + [
-                    b_seq[c - 1] if direction in (Direction.DIAGONAL, Direction.LEFT) else self.gap_string]
+                    b_seq[c - 1] if direction in (Direction.DIAGONAL, Direction.LEFT) else self.gap_string],
+                max_paths=max_paths,
+                computed_paths=computed_paths + len(res)
             )
         return res
 
