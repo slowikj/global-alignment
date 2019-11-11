@@ -9,13 +9,16 @@ class NeedlemanWunschParamsValidatorTests(unittest.TestCase):
         self.params_validator = NeedlemanWunschParamsValidator()
 
     def test_return_params_that_are_not_set_in_config_dict(self):
+        # arrange
         config = {
             "GAP_PENALTY": 1,
             "SAME": 5,
             "DIFF": 5
         }
 
-        self.assertEqual(
-            self.params_validator.validate_config(config),
-            (False, ["MAX_SEQUENCE_LENGTH", "MAX_NUMBER_PATHS"])
-        )
+        # act
+        validation_status, missing_params = self.params_validator.validate_config(config)
+
+        # act
+        self.assertEqual(validation_status, False)
+        self.assertSetEqual(missing_params, {"MAX_SEQ_LENGTH", "MAX_NUMBER_PATHS"})
