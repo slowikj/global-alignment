@@ -102,3 +102,17 @@ class ConfigAnalysisTests(unittest.TestCase):
             self.config_reader.get_attributes(),
             [("A", 1), ("B", 3)]
         )
+
+    def test_adding_two_lines_with_the_same_key_raises_value_error(self):
+        # arrange
+        line1 = "A 1"
+        line2 = "A 2"
+
+        # act
+        self.config_reader.add_line(line1)
+
+        # assert
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line2)
+        )
