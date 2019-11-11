@@ -147,9 +147,9 @@ class NeedlemanWunschSolver(object):
     def __prepare_alignment(self, a_seq: str, b_seq: str,
                             r: int, c: int,
                             current_a_align: List[str], current_b_align: List[str]):
-        remaining = max(r, c)
-        a_align = self.__add_last_alignment_filling(current_a_align, remaining, a_seq, r)
-        b_align = self.__add_last_alignment_filling(current_b_align, remaining, b_seq, c)
+        remaining_chars_num = max(r, c)
+        a_align = self.__add_last_alignment_filling(current_a_align, remaining_chars_num, a_seq, r)
+        b_align = self.__add_last_alignment_filling(current_b_align, remaining_chars_num, b_seq, c)
         return {
             tuple(map(
                 lambda l: to_string(l)[::-1],
