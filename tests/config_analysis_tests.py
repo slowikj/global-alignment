@@ -33,3 +33,46 @@ class ConfigAnalysisTests(unittest.TestCase):
             ValueError,
             lambda: self.config_reader.add_line(line)
         )
+
+    def test_add_line_with_no_value_raises_value_error(self):
+        # arrange
+        line = "FIRST_PARAM"
+        # act and assert
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line)
+        )
+
+    def test_add_line_without_key_raises_value_error(self):
+        # arrange
+        line = "5"
+        # act and assert
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line)
+        )
+
+    def test_add_line_with_key_and_space_raises_value_error(self):
+        # arrange
+        line = "PARAM "
+        # act and assert
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line)
+        )
+
+    def test_add_line_with_key_and_spaces_raises_value_error(self):
+        # arrange
+        line = "PARAM    "
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line)
+        )
+
+    def test_add_line_with_too_many_values_raises_value_error(self):
+        # arrange
+        line = "PARAM 54 55 P"
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line)
+        )
