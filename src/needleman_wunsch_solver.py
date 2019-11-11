@@ -94,8 +94,8 @@ class NeedlemanWunschSolver(object):
             -> Set[Tuple[str, str]]:
         if r == 0 or c == 0:
             rest = max(r, c)
-            a_align = current_a_align + ([self.gap_string] * rest if r == 0 else [x for x in a_seq[:r]])
-            b_align = current_b_align + ([self.gap_string] * rest if c == 0 else [x for x in b_seq[:c]])
+            a_align = current_a_align + ([self.gap_string] * rest if r == 0 else [x for x in a_seq[:r][::-1]])
+            b_align = current_b_align + ([self.gap_string] * rest if c == 0 else [x for x in b_seq[:c][::-1]])
             return {tuple(map(
                 lambda l: to_string(l)[::-1],
                 [a_align, b_align]))[:2]
