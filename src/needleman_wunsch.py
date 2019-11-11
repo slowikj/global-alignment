@@ -20,4 +20,7 @@ class NeedlemanWunschParamsValidator(object):
             set(keys) - self.obligatory_keys
         )
 
+    @staticmethod
+    def validate_sequence(sequence: str, max_sequence_length: int) -> bool:
+        return len(sequence) <= max_sequence_length
 
