@@ -1,0 +1,2 @@
+class NeedlemanWunschParamsValidator(object):
+    pass
