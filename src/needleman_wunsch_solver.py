@@ -67,23 +67,24 @@ class CellCostComputer(ICellCostComputer):
 
 
 class NeedlemanWunschSolver(object):
-
     gap_string = "-"
 
     def __init__(self, cell_cost_computer: ICellCostComputer):
         self.cell_cost_computer = cell_cost_computer
 
-    def generate_alignments(self, a_seq: str, b_seq: str) -> Set[Tuple[str, str]]:
-        _, directions_matrix = self.compute_cost_direction_matrices(a_seq, b_seq)
-        return self.__generate_alignments(
-            r=len(a_seq),
-            c=len(b_seq),
-            a_seq=a_seq,
-            b_seq=b_seq,
-            directions_matrix=directions_matrix,
-            current_a_align=[],
-            current_b_align=[]
-        )
+    def generate_alignments(self, a_seq: str, b_seq: str) -> Tuple[int, Set[Tuple[str, str]]]:
+        cost_matrix, directions_matrix = self.compute_cost_direction_matrices(a_seq, b_seq)
+        return (
+            cost_matrix[len(a_seq)][len(b_seq)],
+            self.__generate_alignments(
+                r=len(a_seq),
+                c=len(b_seq),
+                a_seq=a_seq,
+                b_seq=b_seq,
+                directions_matrix=directions_matrix,
+                current_a_align=[],
+                current_b_align=[]
+            ))
 
     def compute_cost_direction_matrices(self, a_seq: str, b_seq: str) \
             -> (List[List[int]], List[List[List[Direction]]]):
@@ -136,10 +137,10 @@ class NeedlemanWunschSolver(object):
         rest = max(r, c)
         a_align = self.__add_last_alignment_filling(current_a_align, rest, a_seq, r)
         b_align = self.__add_last_alignment_filling(current_b_align, rest, b_seq, c)
-        return { tuple(map(
+        return {tuple(map(
             lambda l: to_string(l)[::-1],
             [a_align, b_align]))[:2]
-        }
+                }
 
     def __add_last_alignment_filling(self, current_align, rest, seq, index):
         return current_align + ([self.gap_string] * rest if index == 0 else [x for x in seq[0:index][::-1]])
