@@ -64,6 +64,7 @@ class ConfigAnalysisTests(unittest.TestCase):
     def test_add_line_with_key_and_spaces_raises_value_error(self):
         # arrange
         line = "PARAM    "
+        # act and assert
         self.assertRaises(
             ValueError,
             lambda: self.config_reader.add_line(line)
@@ -72,6 +73,16 @@ class ConfigAnalysisTests(unittest.TestCase):
     def test_add_line_with_too_many_values_raises_value_error(self):
         # arrange
         line = "PARAM 54 55 P"
+        # act and assert
+        self.assertRaises(
+            ValueError,
+            lambda: self.config_reader.add_line(line)
+        )
+
+    def test_add_line_with_not_integer_value_raises_value_error(self):
+        # arrange
+        line = "PARAM A"
+        # act and assert
         self.assertRaises(
             ValueError,
             lambda: self.config_reader.add_line(line)
