@@ -32,20 +32,32 @@ class AlignmentPathsTests(unittest.TestCase):
             "AS", "AA"
         ],
         [
-            {('AAA-D', '--AS-'),
-             ('A-AAD', 'AS---'),
-             ('AA-AD', 'A-S--'),
-             ('AAA-D', 'A--S-'),
-             ('AA-AD', '-AS--'),
-             ('AAAD-', 'A---S'),
-             ('AAAD-', '--A-S'),
-             ('AAAD-', '-A--S'),
-             ('AAA-D', '-A-S-')},
+            {("AAA-D", "--AS-"),
+             ("A-AAD", "AS---"),
+             ("AA-AD", "A-S--"),
+             ("AAA-D", "A--S-"),
+             ("AA-AD", "-AS--"),
+             ("AAAD-", "A---S"),
+             ("AAAD-", "--A-S"),
+             ("AAAD-", "-A--S"),
+             ("AAA-D", "-A-S-")},
             "AAAD", "AS"
         ],
         [
             {("----", "AAAD")},
             "", "AAAD"
+        ],
+        [
+            {("AAAD-", "----S"),
+             ("AA-AD", "--S--"),
+             ("AAA-D", "---S-"),
+             ("-AAAD", "S----"),
+             ("A-AAD", "-S---")},
+            "AAAD", "S"
+        ],
+        [
+            {("ABCD", "A--D")},
+            "ABCD", "AD"
         ]
     ])
     def test(self, expected_result, seq_a, seq_b):
