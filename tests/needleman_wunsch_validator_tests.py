@@ -60,3 +60,9 @@ class NeedlemanWunschParamsValidatorTests(unittest.TestCase):
         max_length = 100
 
         self.assertTrue(self.params_validator.validate_sequence(seq_a, max_length))
+
+    def test_do_not_validate_too_long_sequence(self):
+        seq_a = "AAAAAAAAAAAA"
+        max_length = 3
+
+        self.assertFalse(self.params_validator.validate_sequence(seq_a, max_length))
