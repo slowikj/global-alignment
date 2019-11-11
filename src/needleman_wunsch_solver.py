@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from enum import IntEnum, unique
 
-from typing import List, Tuple, Set
+from typing import List, Tuple, Set, Callable
 
 from src.utils import to_string
 
@@ -142,17 +142,21 @@ class NeedlemanWunschSolver(object):
             )
         return res
 
-    def __prepare_alignment(self, a_seq, b_seq, r, c, current_a_align, current_b_align):
+    def __prepare_alignment(self, a_seq: str, b_seq: str,
+                            r: int, c: int,
+                            current_a_align: List[str], current_b_align: List[str]):
         rest = max(r, c)
         a_align = self.__add_last_alignment_filling(current_a_align, rest, a_seq, r)
         b_align = self.__add_last_alignment_filling(current_b_align, rest, b_seq, c)
-        return {tuple(map(
-            lambda l: to_string(l)[::-1],
-            [a_align, b_align]))[:2]
-                }
+        return {
+            tuple(map(
+                lambda l: to_string(l)[::-1],
+                [a_align, b_align]))[:2]
+        }
 
-    def __add_last_alignment_filling(self, current_align, rest, seq, index):
-        return current_align + ([self.gap_string] * rest if index == 0 else [x for x in seq[0:index][::-1]])
+    def __add_last_alignment_filling(self, current_align: List[str], rest_char_num: int, seq: str, current_index: int):
+        return current_align + \
+               ([self.gap_string] * rest_char_num if current_index == 0 else [x for x in seq[0:current_index][::-1]])
 
     def __fill_cost_and_direction_matrix(self, a_seq: str, b_seq: str,
                                          cost_matrix: List[List[int]],
@@ -178,7 +182,7 @@ class NeedlemanWunschSolver(object):
 
     @staticmethod
     def __generate_matrix(height: int, width: int,
-                          cell_generator) -> List[List]:
+                          cell_generator: Callable[[int, int], object]) -> List[List]:
         return [
             [cell_generator(r, c) for c in range(width)]
             for r in range(height)
